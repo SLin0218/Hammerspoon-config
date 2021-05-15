@@ -7,7 +7,7 @@ obj.__index = obj
 obj.name = "Watcher"
 obj.version = "1.0"
 obj.author = "DengShiLin <DengShiLin0218@gmail.com>"
-obj.homepage = "https://github.com/Hammerspoon/Spoons"
+obj.homepage = "https://github.com/Slin_0218/Hammerspoon-config"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 obj.city = 'GuangZhou'
