@@ -182,3 +182,37 @@ end
 ----------------------------------------------------------------------------------------------------
 -- Finally we initialize ModalMgr supervisor
 spoon.ModalMgr.supervisor:enter()
+
+----------------------------------------------------------------------------------------------------
+-- switch current focus application
+local focus_window_title = ''
+local app_windows_switcher = nil
+-- style
+hs.window.switcher.ui.textColor = {240,240,240}
+hs.window.switcher.ui.backgroundColor = {0,0,0,0.7}
+hs.window.switcher.ui.titleBackgroundColor = {0,0,0}
+hs.window.switcher.ui.fontName = 'Helvetica'
+hs.window.switcher.ui.textSize = 22
+-- Don't show thumbnails, Improve loading speed
+hs.window.switcher.ui.showThumbnails = false
+hs.window.switcher.ui.showSelectedThumbnail = false
+
+hsswitch_focus_keys = hsswitch_focus_keys or {"cmd", "`"}
+hs.hotkey.bind(hsswitch_focus_keys[1], hsswitch_focus_keys[2], nil,
+function ()
+  local cur_focus_window_app_name = hs.window.frontmostWindow():application():name()
+  -- Get the switcher based on the app name
+  local focus_window_filter = hs.window.filter.new(cur_focus_window_app_name)
+  -- Ignore apps with less than 1 window
+  if (#(focus_window_filter:getWindows()) <= 1) then return end
+  -- Current focus app changes
+  if (cur_focus_window_app_name ~= focus_window_title)
+  then
+    -- Reset focus window title
+    focus_window_title = cur_focus_window_app_name
+    -- Reset current focus window switcher
+    app_windows_switcher = hs.window.switcher.new(focus_window_filter)
+  end
+  -- Switch to the next window
+  app_windows_switcher:next()
+end)
