@@ -92,44 +92,6 @@ if string.len(hsman_keys[2]) > 0 then
 end
 
 ----------------------------------------------------------------------------------------------------
--- countdownM modal environment
-if spoon.CountDown then
-    spoon.ModalMgr:new("countdownM")
-    local cmodal = spoon.ModalMgr.modal_list["countdownM"]
-    cmodal:bind('', 'escape', 'Deactivate countdownM', function() spoon.ModalMgr:deactivate({"countdownM"}) end)
-    cmodal:bind('', 'Q', 'Deactivate countdownM', function() spoon.ModalMgr:deactivate({"countdownM"}) end)
-    cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
-    cmodal:bind('', '0', '5 Minutes Countdown', function()
-        spoon.CountDown:startFor(5)
-        spoon.ModalMgr:deactivate({"countdownM"})
-    end)
-    for i = 1, 9 do
-        cmodal:bind('', tostring(i), string.format("%s Minutes Countdown", 10 * i), function()
-            spoon.CountDown:startFor(10 * i)
-            spoon.ModalMgr:deactivate({"countdownM"})
-        end)
-    end
-    cmodal:bind('', 'return', '25 Minutes Countdown', function()
-        spoon.CountDown:startFor(25)
-        spoon.ModalMgr:deactivate({"countdownM"})
-    end)
-    cmodal:bind('', 'space', 'Pause/Resume CountDown', function()
-        spoon.CountDown:pauseOrResume()
-        spoon.ModalMgr:deactivate({"countdownM"})
-    end)
-
-    -- Register countdownM with modal supervisor
-    hscountdM_keys = hscountdM_keys or {"alt", "I"}
-    if string.len(hscountdM_keys[2]) > 0 then
-        spoon.ModalMgr.supervisor:bind(hscountdM_keys[1], hscountdM_keys[2], "Enter countdownM Environment", function()
-            spoon.ModalMgr:deactivateAll()
-            -- Show the keybindings cheatsheet once countdownM is activated
-            spoon.ModalMgr:activate({"countdownM"}, "#FF6347", true)
-        end)
-    end
-end
-
-----------------------------------------------------------------------------------------------------
 -- Register lock screen
 hslock_keys = hslock_keys or {"alt", "L"}
 if string.len(hslock_keys[2]) > 0 then
@@ -185,31 +147,6 @@ if spoon.WinWin then
             spoon.ModalMgr:deactivateAll()
             -- Show an status indicator so we know we're in some modal environment now
             spoon.ModalMgr:activate({"resizeM"}, "#FF0000")
-        end)
-    end
-end
-
-----------------------------------------------------------------------------------------------------
--- cheatsheetM modal environment (Because KSheet Spoon is NOT loaded, cheatsheetM will NOT be activated)
-if spoon.KSheet then
-    spoon.ModalMgr:new("cheatsheetM")
-    local cmodal = spoon.ModalMgr.modal_list["cheatsheetM"]
-    cmodal:bind('', 'escape', 'Deactivate cheatsheetM', function()
-        spoon.KSheet:hide()
-        spoon.ModalMgr:deactivate({"cheatsheetM"})
-    end)
-    cmodal:bind('', 'Q', 'Deactivate cheatsheetM', function()
-        spoon.KSheet:hide()
-        spoon.ModalMgr:deactivate({"cheatsheetM"})
-    end)
-
-    -- Register cheatsheetM with modal supervisor
-    hscheats_keys = hscheats_keys or {"alt", "S"}
-    if string.len(hscheats_keys[2]) > 0 then
-        spoon.ModalMgr.supervisor:bind(hscheats_keys[1], hscheats_keys[2], "Enter cheatsheetM Environment", function()
-            spoon.KSheet:show()
-            spoon.ModalMgr:deactivateAll()
-            spoon.ModalMgr:activate({"cheatsheetM"})
         end)
     end
 end
