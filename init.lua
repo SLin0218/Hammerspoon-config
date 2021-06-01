@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, lowercase-global
 local obj = {}
 obj.__index = obj
 
@@ -86,6 +87,7 @@ hsman_keys = hsman_keys or {"alt", "H"}
 if string.len(hsman_keys[2]) > 0 then
     spoon.ModalMgr.supervisor:bind(hsman_keys[1], hsman_keys[2], "Read Hammerspoon Manual", function()
         hs.doc.hsdocs.forceExternalBrowser(true)
+        hs.doc.hsdocs.browserDarkMode(0)
         hs.doc.hsdocs.moduleEntitiesInSidebar(true)
         hs.doc.hsdocs.help()
     end)
@@ -137,7 +139,8 @@ if spoon.WinWin then
     cmodal:bind('', 'space', 'Move to Next Monitor', function() spoon.WinWin:moveToScreen("next") end)
     cmodal:bind('', '[', 'Undo Window Manipulation', function() spoon.WinWin:undo() end)
     cmodal:bind('', ']', 'Redo Window Manipulation', function() spoon.WinWin:redo() end)
-    cmodal:bind('', '`', 'Center Cursor', function() spoon.WinWin:centerCursor() end)
+    --cmodal:bind('', '`', 'Center Cursor', function() spoon.WinWin:centerCursor() end)
+    hs.hotkey.bind('alt', 'G', nil, function() spoon.WinWin:centerCursor() end)
 
     -- Register resizeM with modal supervisor
     hsresizeM_keys = hsresizeM_keys or {"alt", "R"}
@@ -185,34 +188,34 @@ spoon.ModalMgr.supervisor:enter()
 
 ----------------------------------------------------------------------------------------------------
 -- switch current focus application
-local focus_window_title = ''
-local app_windows_switcher = nil
--- style
-hs.window.switcher.ui.textColor = {240,240,240}
-hs.window.switcher.ui.backgroundColor = {0,0,0,0.7}
-hs.window.switcher.ui.titleBackgroundColor = {0,0,0}
-hs.window.switcher.ui.fontName = 'Helvetica'
-hs.window.switcher.ui.textSize = 22
--- Don't show thumbnails, Improve loading speed
-hs.window.switcher.ui.showThumbnails = false
-hs.window.switcher.ui.showSelectedThumbnail = false
+--local focus_window_title = ''
+--local app_windows_switcher = nil
+---- style
+--hs.window.switcher.ui.textColor = {240,240,240}
+--hs.window.switcher.ui.backgroundColor = {0,0,0,0.7}
+--hs.window.switcher.ui.titleBackgroundColor = {0,0,0}
+--hs.window.switcher.ui.fontName = 'Helvetica'
+--hs.window.switcher.ui.textSize = 22
+---- Don't show thumbnails, Improve loading speed
+--hs.window.switcher.ui.showThumbnails = false
+--hs.window.switcher.ui.showSelectedThumbnail = false
 
-hsswitch_focus_keys = hsswitch_focus_keys or {"cmd", "`"}
-hs.hotkey.bind(hsswitch_focus_keys[1], hsswitch_focus_keys[2], nil,
-function ()
-  local cur_focus_window_app_name = hs.window.frontmostWindow():application():name()
-  -- Get the switcher based on the app name
-  local focus_window_filter = hs.window.filter.new(cur_focus_window_app_name)
-  -- Ignore apps with less than 1 window
-  if (#(focus_window_filter:getWindows()) <= 1) then return end
-  -- Current focus app changes
-  if (cur_focus_window_app_name ~= focus_window_title)
-  then
-    -- Reset focus window title
-    focus_window_title = cur_focus_window_app_name
-    -- Reset current focus window switcher
-    app_windows_switcher = hs.window.switcher.new(focus_window_filter)
-  end
-  -- Switch to the next window
-  app_windows_switcher:next()
-end)
+--hsswitch_focus_keys = hsswitch_focus_keys or {"cmd", "`"}
+--hs.hotkey.bind(hsswitch_focus_keys[1], hsswitch_focus_keys[2], nil,
+--function ()
+  --local cur_focus_window_app_name = hs.window.frontmostWindow():application():name()
+  ---- Get the switcher based on the app name
+  --local focus_window_filter = hs.window.filter.new(cur_focus_window_app_name)
+  ---- Ignore apps with less than 1 window
+  --if (#(focus_window_filter:getWindows()) <= 1) then return end
+  ---- Current focus app changes
+  --if (cur_focus_window_app_name ~= focus_window_title)
+  --then
+    ---- Reset focus window title
+    --focus_window_title = cur_focus_window_app_name
+    ---- Reset current focus window switcher
+    --app_windows_switcher = hs.window.switcher.new(focus_window_filter)
+  --end
+  ---- Switch to the next window
+  --app_windows_switcher:next()
+--end)
