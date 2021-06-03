@@ -35,13 +35,12 @@ local function current_selection()
 end
 
 local function translate(text)
-  print(text)
   if obj.webview == nil then
     local rect = hs.geometry.rect(0, 0, obj.popup_size.w, obj.popup_size.h)
     rect.center = hs.screen.mainScreen():frame().center
     local usercontent = hs.webview.usercontent.new('initScript')
     usercontent:injectScript({
-      source=obj.js .. "window.inputValue(document.getElementsByClassName(\"textinput\")[0],\"" .. text .. "\");",
+      source=obj.js .. "window.inputValue(\"" .. text .. "\");",
       injectionTime="documentEnd"
     })
     obj.webview = hs.webview.new(rect, {}, usercontent) :allowTextEntry(true)
@@ -52,7 +51,7 @@ local function translate(text)
         :bringToFront()
         :show()
   else
-    obj.webview:evaluateJavaScript("window.inputValue(document.getElementsByClassName(\"textinput\")[0],\"" .. text .. "\");")
+    obj.webview:evaluateJavaScript("window.inputValue(\"" .. text .. "\");")
   end
   obj.webview:bringToFront():show()
   obj.webview:hswindow():focus()
@@ -61,7 +60,8 @@ end
 hs.hotkey.bind('alt', 'i', nil, function()
   local text = current_selection()
   text = string.gsub(text, "\"", "\\\"")
-  text = string.gsub(text, "\n", "")
+  text = string.gsub(text, "\n", "\\n")
+  print(text)
   translate(text)
 end)
 

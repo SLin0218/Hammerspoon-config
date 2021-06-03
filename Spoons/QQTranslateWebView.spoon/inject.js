@@ -8,30 +8,16 @@ window.delByClass = function (className) {
         nodes[i].parentNode.removeChild(nodes[i]);
     }
 };
-window.isHidden = function (el) {
-    var style = window.getComputedStyle(el);
-    return style.display === "none";
-};
 window.preInput = "";
-window.inputValue = function (dom, st) {
+window.inputValue = function (st) {
     if (st === preInput.toLowerCase()) {
         return;
     }
     window.preInput = st;
-    var evt = new InputEvent("input", {
-        inputType: "insertText",
-        data: st,
-        dataTransfer: null,
-        isComposing: false,
-    });
-    dom.value = st;
-    dom.dispatchEvent(evt);
+    $($(".textinput")[0]).val(st).trigger("input");
     setTimeout(() => {
         if ($(".textpanel-source-suggest").css("display") === "block") {
-            const el = document.getElementsByClassName("suggest-item");
-            if (el && el.length > 0 && el[0]) {
-                el[0].click();
-            }
+            $($(".suggest-item")[0]).trigger("click");
         }
     }, 2000);
 };
@@ -40,4 +26,4 @@ window.delByClass("textpanel-banner");
 window.delByClass("layout-float");
 window.delByClass("rightLayer");
 window.delByClass("dict-banner");
-document.getElementsByClassName("language")[0].style["margin-top"] = "30px";
+$(".language").css("margin-top", "30px");
