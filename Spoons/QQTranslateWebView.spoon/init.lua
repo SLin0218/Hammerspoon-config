@@ -3,7 +3,7 @@ local obj={}
 obj.__index = obj
 obj.webview = nil
 
-obj.popup_size = hs.geometry.size(1000, 710)
+obj.popup_size = hs.geometry.size(900, 700)
 
 obj.popup_style = hs.webview.windowMasks.utility|hs.webview.windowMasks.HUD|hs.webview.windowMasks.titled|hs.webview.windowMasks.closable
 -- 获取当前脚本路径
