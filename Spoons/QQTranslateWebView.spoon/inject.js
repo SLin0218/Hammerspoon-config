@@ -1,26 +1,26 @@
 window.delById = function (id) {
-    const node = document.getElementById(id);
-    node.parentNode.removeChild(node);
+  const node = document.getElementById(id);
+  node.parentNode.removeChild(node);
 };
 window.delByClass = function (className) {
-    const nodes = document.getElementsByClassName(className);
-    for (let i = 0; i < nodes.length; i++) {
-        nodes[i].parentNode.removeChild(nodes[i]);
-    }
+  const nodes = document.getElementsByClassName(className);
+  for (let i = 0; i < nodes.length; i++) {
+    nodes[i].parentNode.removeChild(nodes[i]);
+  }
 };
 window.preInput = "";
 window.inputValue = function (st) {
-    if (st === preInput.toLowerCase()) {
-        $(".textinput").trigger("focus");
-        return;
+  if (st === preInput.toLowerCase()) {
+    $(".textinput").trigger("focus");
+    return;
+  }
+  window.preInput = st;
+  $(".textinput").val(st).trigger("input").trigger("focus");
+  setTimeout(() => {
+    if ($(".textpanel-source-suggest").css("display") === "block") {
+      $(".textpanel-source-suggest").hide();
     }
-    window.preInput = st;
-    $(".textinput").val(st).trigger("input").trigger("focus");
-    setTimeout(() => {
-        if ($(".textpanel-source-suggest").css("display") === "block") {
-            $($(".suggest-item")[0]).trigger("click");
-        }
-    }, 2000);
+  }, 2000);
 };
 window.delByClass("header");
 window.delByClass("textpanel-banner");

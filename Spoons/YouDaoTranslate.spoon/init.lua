@@ -9,10 +9,10 @@ obj.author = "DengShiLin <slin_0218@163.com>"
 obj.homepage = "https://github.com/Hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
-obj.secret = ""
-obj.salt = ""
+obj.secret = "FQVc4qyp1A5zJtnySzY74qxoQZXNHWkA"
+obj.salt = "96C9FDA4-534E-4FBF-8A33-210E4DA2CCA4"
 obj.signType = "v3"
-obj.appKey = ""
+obj.appKey = "6f5dfad8958633ba"
 obj.apiUrl = "https://openapi.youdao.com/api"
 obj.log = hs.logger.new('YouDaoTranslate', 4)
 
@@ -166,7 +166,7 @@ function obj:layout(code, response)
 
   local text = response.translation[1]
 
-  if response.basic ~= nil and response.basic.phonetic ~= nil then
+  if response.basic ~= nil and response.basic.phonetic ~= nil and response.basic.phonetic ~= "" then
     text = text .. "  [" .. response.basic.phonetic .. "]"
   end
 
@@ -183,8 +183,8 @@ function obj:layout(code, response)
     if response.basic['us-phonetic'] ~= nil then
       text = text .. "美 [" .. response.basic['us-phonetic'] .. "]  "
     end
-    if response.basic['uk-phonetic'] ~= nil then
-      text = text .. "英 [" .. response.basic['us-phonetic'] .. "]"
+    if response.basic['uk-phonetic'] ~= nil and response.basic['uk-phonetic'] ~= "" then
+      text = text .. "英 [" .. response.basic['uk-phonetic'] .. "]"
     end
     text = text .. "\n"
   end

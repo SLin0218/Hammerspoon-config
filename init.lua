@@ -60,7 +60,7 @@ for _, v in pairs(hspoon_list) do
     hs.loadSpoon(v)
 end
 
-spoon.Weather:start()
+--spoon.Weather:start()
 spoon.SpeedMenu:start()
 spoon.IntelTemperature:start()
 

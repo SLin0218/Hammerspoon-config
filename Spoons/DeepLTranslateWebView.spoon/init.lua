@@ -3,7 +3,7 @@ local obj={}
 obj.__index = obj
 obj.webview = nil
 
-obj.popup_size = hs.geometry.size(1200, 500)
+obj.popup_size = hs.geometry.size(900, 700)
 
 obj.popup_style = hs.webview.windowMasks.utility|hs.webview.windowMasks.HUD|hs.webview.windowMasks.titled|hs.webview.windowMasks.closable
 -- 获取当前脚本路径
@@ -47,7 +47,7 @@ local function translate(text)
        :windowStyle(obj.popup_style)
        :closeOnEscape(true)
        :size({w=obj.popup_size.w, h=obj.popup_size.h})
-    obj.webview:url("https://fanyi.youdao.com/")
+    obj.webview:url("https://www.deepl.com/translator")
         :bringToFront()
         :show()
   else
@@ -61,7 +61,6 @@ hs.hotkey.bind('alt', 'i', nil, function()
   local text = current_selection()
   text = string.gsub(text, "\"", "\\\"")
   text = string.gsub(text, "\n", "\\n")
-  print(text)
   translate(text)
 end)
 
